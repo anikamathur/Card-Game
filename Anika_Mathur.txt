@@ -1,0 +1,232 @@
+# Student: Anika Mathur
+# Date: 3/16/2021
+
+import random
+
+def pickRandomCard (all_cards):
+	count = len(all_cards)
+
+	randomIdx = random.randint (0, count-1)
+	card = all_cards.pop (randomIdx)
+
+	return card
+
+
+def dealCards (all_cards):
+	cards_1 = []
+	cards_2 = []
+	cards_3 = []
+  
+	while (len (all_cards) > 3):
+		chosenCard = pickRandomCard (all_cards)
+		cards_1.append (chosenCard)
+
+		chosenCard = pickRandomCard (all_cards)
+		cards_2.append (chosenCard)
+		
+		chosenCard = pickRandomCard (all_cards)
+		cards_3.append (chosenCard)
+
+	return (cards_1, cards_2, cards_3)
+
+
+import random
+
+def convertCardToNumber (card):
+	value = 0
+  
+	if (card == "Ja" or card == "Q" or card == "K"):
+		value = 10
+		
+	elif (card == "A" or card == "Jo"):
+		value = 11
+	
+	elif (card == "T"):
+		turkeyCard = random.randrange (-20, 0, 1)
+		value = turkeyCard
+	
+	elif (card == "L"):
+		value = 0
+		
+	elif (card == "W"):
+		wildCard = random.randrange (20)
+		value = wildCard
+		
+	elif (card == "S"):
+		value = 25
+	
+	else:
+		value = int (card)
+
+	return value
+
+
+def printOutWinner (player_1_name, player_2_name, player_3_name, p1_score, p2_score, p3_score):
+
+	if (p1_score > p2_score and p1_score > p3_score and p2_score>= p3_score):
+		print ("FIRST PLACE: " + player_1_name)
+		print ("SECOND PLACE: " + player_2_name)
+		print ("THIRD PLACE: " + player_3_name)
+    
+	elif (p1_score > p2_score and p1_score > p3_score and p3_score >= p2_score):
+		print ("FIRST PLACE: " + player_1_name)
+		print ("SECOND PLACE: " + player_3_name)
+		print ("THIRD PLACE: " + player_2_name)
+    
+	elif (p2_score > p1_score and p2_score > p3_score and p1_score >= p3_score):
+		print ("FIRST PLACE: " + player_2_name)
+		print ("SECOND PLACE: " + player_1_name)
+		print ("THIRD PLACE: " + player_3_name)
+    
+	elif (p2_score > p1_score and p2_score > p3_score and p3_score >= p1_score):
+		print ("FIRST PLACE: " + player_2_name)
+		print ("SECOND PLACE: " + player_3_name)
+		print ("THIRD PLACE: " + player_1_name)
+   
+	elif (p3_score > p1_score and p3_score > p2_score and p1_score >= p2_score):
+		print ("FIRST PLACE: " + player_3_name)
+		print ("SECOND PLACE: " + player_1_name)
+		print ("THIRD PLACE: " + player_2_name)
+
+	elif (p3_score > p1_score and p3_score > p2_score and p2_score >= p1_score):
+		print ("FIRST PLACE: " + player_3_name)
+		print ("SECOND PLACE: " + player_2_name)
+		print ("THIRD PLACE: " + player_1_name)
+
+	else:
+		print (player_1_name + ", " + player_2_name + ", and " + player_3_name + " tied") 
+		print (str (p1_score) + " to " + str (p2_score) + " to " + str (p3_score)) 
+    
+
+#main code
+
+print ("INSTRUCTIONS for the GAME OF LUCK: ") 
+print ("This is a three-player game which reuqires only luck to win. Each round consists of each player pulling a card from their randomly shuffled deck of 23 cards. The pulled card gets added to the player's cumulative total. After 23 rounds, the player with the highest cumulative score wins. Occasionally, two players may switch points, which adds to the unexpectedness of this game. The deck of cards consists of 69 total cards- 4 sets of standard cards and special cards. Cards 1-10 are worth the respective point value; Jack, Queen, and King are worth 10 points; Ace and Joker are worth 11 points.")
+print ("The deck consists of special cards, too: ")
+print ("  Turkey Card --> anywhere between -20 to 0 points")
+print ("  Loser Card--> 0 points")
+print ("  Wild Card --> anywhere between 0 to 20 points")
+print ("  Super Card--> 25 points")
+print ("  Thanos Card --> minus half of the cumulative points")
+print ("Press ENTER to continue.")
+x = input()
+
+
+player_1_name = input ("Please enter a name for PLAYER 1: ")
+player_2_name = input ("Please enter a name for PLAYER 2: ")
+player_3_name = input ("Please enter a name for PLAYER 3: ")
+print ("")
+
+
+import random
+randNum = 0
+
+playAgain = "yes"
+while playAgain == "yes":
+
+	all_cards = ["1","2","3","4","5","6","7","8","9","10","Ja","Q","K","A","Jo", 
+	"1","2","3","4","5","6","7","8","9","10","Ja","Q","K","A","Jo",
+	"1","2","3","4","5","6","7","8","9","10","Ja","Q","K","A","Jo", 
+	"1","2","3","4","5","6","7","8","9","10","Ja","Q","K","A","Jo",
+	"T","S","L","T","L", "W","W","W","W"]
+
+	player_1_cards = []
+	player_2_cards = []
+	player_3_cards = []
+
+	player_1_cards, player_2_cards, player_3_cards = dealCards(all_cards)
+
+	print ("shuffling...")
+	x = input ()
+
+
+	numHands = len(player_1_cards)
+	p1_score = 0
+	p2_score = 0
+	p3_score = 0
+
+
+	for lp in range (numHands):
+		card_p1 = player_1_cards.pop (0) 
+		card_p2 = player_2_cards.pop (0) 
+		card_p3 = player_3_cards.pop (0) 
+
+		card_value_p1 = int (convertCardToNumber (card_p1))
+		card_value_p2 = int (convertCardToNumber (card_p2))
+		card_value_p3 = int (convertCardToNumber (card_p3))
+  
+		p1_score = p1_score + card_value_p1
+		randNum = 0
+		randThanos = random.randrange (15)
+		randNum = random.randrange (15)
+		if (randNum == randThanos):
+			print (player_1_name + " pulled a THANOS CARD!")
+			p1_score = p1_score // 2
+		randSwitch_1to2 = random.randrange (25)
+		rand_Num_1to2 = random.randrange (25)
+		if (rand_Num_1to2 == randSwitch_1to2):
+		    print ("SWITCH! " + player_1_name + " and " + player_2_name + " switch points!")
+		    p1_score = p2_score
+		randSwitch_1to3 = random.randrange (25)
+		rand_Num_1to3 = random.randrange (25)
+		if (rand_Num_1to3 == randSwitch_1to3):
+		    print ("SWITCH! " + player_1_name + " and " + player_3_name + " switch points!")
+		    p1_score = p3_score
+
+		p2_score = p2_score + card_value_p2
+		randNum = 0
+		randThanos = random.randrange (15)
+		randNum = random.randrange (15)
+		if (randNum == randThanos):
+			print (player_2_name + " pulled a THANOS CARD!")
+			p2_score = p2_score // 2
+		randSwitch_2to3 = random.randrange (25)
+		rand_Num_2to3 = random.randrange (25)
+		if (rand_Num_2to3 == randSwitch_2to3):
+		    print ("SWITCH! " + player_2_name + " and " + player_3_name + " switch points!")
+		    p2_score = p3_score
+
+
+		p3_score = p3_score + card_value_p3
+		randNum = 0
+		randThanos = random.randrange (15)
+		randNum = random.randrange (15)
+		if (randNum == randThanos):
+			print (player_3_name + " pulled a THANOS CARD!")
+			p3_score = p3_score // 2
+			
+
+		print(player_1_name + ": " + card_p1)
+		print("  " + player_1_name + "'s cumulative score: " + str (p1_score))
+
+		print(player_2_name + ": " + card_p2)
+		print("  " + player_2_name + "'s cumulative score: " + str (p2_score))
+
+		print(player_3_name + ": " + card_p3)
+		print("  " + player_3_name + "'s cumulative score: " + str (p3_score))
+
+		print("")
+	 
+	if (card_value_p1 > card_value_p2 and card_value_p1 > card_value_p3):
+		p1_score = p1_score + 1
+		print (player_1_name + " wins this hand!")
+
+	elif (card_value_p1 < card_value_p2 and card_value_p3 < card_value_p2):
+		p2_score = p2_score + 1
+		print (player_2_name + " wins this hand!")
+
+	elif (card_value_p1 < card_value_p3 and card_value_p2 < card_value_p3):
+		p3_score = p3_score + 1
+		print (player_3_name + " wins this hand!")
+		
+	else:
+		print("tie")
+
+	print ("")
+
+	printOutWinner (player_1_name, player_2_name, player_3_name, p1_score, p2_score, p3_score)
+
+
+	print ("")
+	playAgain = input ("play again? ")
+	print ("------------------------------------")
